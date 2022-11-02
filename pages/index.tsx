@@ -140,9 +140,9 @@ export default function Home() {
                             <div className={'w-6 h-full rounded-t-full rounded-b-full bg-white'}>
                             </div>
                         </div>
-                        {roadmap.map((item) => {
+                        {roadmap.map((item,counter) => {
                             return (
-                                <div className={'flex justify-center my-10 items-center'}>
+                                <div  key={counter}  className={'flex justify-center my-10 items-center'}>
                                     {activeQuarter == item.id ?
                                         <div
                                             className={'w-60 mr-5 h-60 relative rounded-full bg-black flex justify-center items-center'}>
@@ -178,8 +178,8 @@ export default function Home() {
                 <div className={'block py-10 w-full bg-black'}>
                     <p className={'font-game text-white text-8xl text-center w-full py-10'}>OUR TEAM</p>
                     <div className={'w-full px-16 flex justify-center items-center flex-wrap'}>
-                        {team.map((item)=>{return (
-                            <div className={'flex flex-col mb-5 flex-wrap mx-10 justify-center items-center'}>
+                        {team.map((item,counter)=>{return (
+                            <div key={counter} className={'flex flex-col mb-5 flex-wrap mx-10 justify-center items-center'}>
                                 <div
                                     className={'w-72 h-72 relative rounded-full bg-black flex justify-center items-center'}>
                                     <div className={'w-full h-full absolute'}>
