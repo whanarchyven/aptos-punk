@@ -152,6 +152,19 @@ export default function Home() {
                     </div>
                 </div>
 
+
+                {/*PUNKS DAO*/}
+
+                <div className={'block w-full py-20 h-[484px] sm:h-[692px] bg-[url("../public/images/dao_bg.png")] bg-cover flex justify-center items-center'}>
+                    <div className={'w-[1160px] hidden sm:flex h-[612px] relative'}>
+                        <Image src={'/images/dao.svg'} layout={'fill'}></Image>
+                    </div>
+                    <div className={'w-[308px] flex sm:hidden h-[375px] relative'}>
+                        <Image src={'/images/dao_mobile.svg'} layout={'fill'}></Image>
+                    </div>
+                </div>
+
+
                 {/*Roadmap*/}
 
                 <div className={'block w-full py-10 bg-[url("../public/images/roadmap.png")] bg-cover px-3 sm:px-20'}>
@@ -213,19 +226,6 @@ export default function Home() {
                         )})}
                     </div>
                 </div>
-
-
-                {/*PUNKS DAO*/}
-
-                <div className={'block w-full py-20 h-[484px] sm:h-[692px] bg-[url("../public/images/dao_bg.png")] bg-cover flex justify-center items-center'}>
-                    <div className={'w-[1160px] hidden sm:flex h-[612px] relative'}>
-                        <Image src={'/images/dao.svg'} layout={'fill'}></Image>
-                    </div>
-                    <div className={'w-[308px] flex sm:hidden h-[375px] relative'}>
-                        <Image src={'/images/dao_mobile.svg'} layout={'fill'}></Image>
-                    </div>
-                </div>
-
 
                 {/*FOOTER*/}
 
