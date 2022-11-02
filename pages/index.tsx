@@ -145,7 +145,7 @@ export default function Home() {
                     <div className={'w-full sm:hidden'}>
                         <MyTimer expiryTimestamp={time}></MyTimer>
                     </div>
-                    <div className={'w-full mt-8 flex justify-center items-center'}>
+                    <div className={'w-full sm:hidden mt-8 flex justify-center items-center'}>
                         <div className={'w-80 h-16 relative'}>
                             <Image src={'/images/mint_button.svg'} layout={'fill'}></Image>
                         </div>
