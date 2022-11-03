@@ -2,7 +2,7 @@ import React from 'react';
 import Image from "next/dist/client/legacy/image";
 
 
-const Navbar = () => {
+const Navbar = (props:any) => {
     return (
         <div className={'w-full h-full grid grid-cols-3 sm:grid-cols-12 gap-4 bg-black items-center'}>
             <div className={'border-2 border-black col-span-2 sm:col-start-1 sm:col-end-4 flex justify-center items-center'}>
@@ -37,7 +37,7 @@ const Navbar = () => {
                 </div>
             </div>
             <div className={'border-l-2 sm:col-span-2 border-white h-full flex justify-center items-center'}>
-                <p className={'text-xs sm:text-sm leading-[120%] text-center text-white font-player'}>CONNECT <br/> wallet</p>
+                {props.children}
             </div>
         </div>
     );
