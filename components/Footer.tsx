@@ -9,16 +9,16 @@ const Footer = () => {
                     <Image src={'/images/logo.svg'} layout={'fill'}></Image>
                 </div>
                 <div className={'flex justify-start mt-4 items-center'}>
-                    <p className={'text-xs text-center text-white underline font-player'}>Mint !</p>
+                    <a href={'#main'} className={'text-xs text-center text-white underline font-player'}>Mint !</a>
                 </div>
                 <div className={'flex justify-start mt-4 items-center'}>
-                    <p className={'text-xs text-center text-white underline font-player'}>Road Map</p>
+                    <a href={'#roadmap'} className={'text-xs text-center text-white underline font-player'}>Road Map</a>
                 </div>
                 <div className={'flex justify-start mt-4 items-center'}>
-                    <p className={'text-xs text-center text-white underline font-player'}>Our comand</p>
+                    <a href={'#team'} className={'text-xs text-center text-white underline font-player'}>Our team</a>
                 </div>
                 <div className={'flex justify-start mt-4 items-center'}>
-                    <p className={'text-xs text-center text-white underline font-player'}>DAO</p>
+                    <a href={'#dao'} className={'text-xs text-center text-white underline font-player'}>DAO</a>
                 </div>
             </div>
             <div className={'mt-8 sm:mt-0 flex justify-around items-center'}>

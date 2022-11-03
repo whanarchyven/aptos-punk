@@ -322,15 +322,18 @@ export default function Home() {
 
                 {/*Main block*/}
 
-                <div
-                    className={'block h-[100vh] pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
+                <div id={'main'}
+                    className={'block h-[100vh] overflow-x-hidden pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
                     <div className={'absolute hidden sm:flex w-full bottom-0 h-[17vw]'}>
                         <Image src={'/images/main_bg.png'} layout={'fill'}></Image>
                     </div>
                     <div className={'absolute flex sm:hidden w-full bottom-0 h-[40vw]'}>
                         <Image src={'/images/main_bg_mobile.png'} layout={'fill'}></Image>
                     </div>
-                    <div className={'w-full p-1 sm:p-4 mt-10 flex justify-between items-center'}>
+                    <div className={'w-full h-32 relative'}>
+                        <Image src={'/images/logo.svg'} layout={'fill'}></Image>
+                    </div>
+                    <div className={'w-full p-1 sm:p-4 mt-10 flex justify-between items-start'}>
                         <motion.div
                             className={'w-60 h-80 mx-2 sm:w-96 sm:h-96 flex-wrap flex justify-center items-center relative'}
                             initial={'hidden'} whileInView={'visible'}
@@ -345,15 +348,17 @@ export default function Home() {
                                     className={'text-xs sm:text-2xl'}>{candyMachineData.data.numMintedTokens}/3000</span>
                             </p>
                             <p className={'z-[5] text-white font-player text-xs sm:text-lg text-center'}>Whitelist<br/> spot<br/><span
-                                className={'text-xs sm:text-2xl'}>{whiteList}/500</span></p>
+                                className={'text-xs sm:text-2xl'}>500/500</span></p>
                         </motion.div>
                         <motion.div className={'w-3/5 mx-5 h-32 hidden flex-wrap sm:flex relative'}
                                     initial={'hidden'} whileInView={'visible'}
                                     viewport={{once: true}}
                                     transition={animate.transitionSecond}
                                     variants={animate.animateZoomIn}>
-                            <div className={'w-full h-full relative'}>
-                                <Image src={'/images/logo.svg'} layout={'fill'}></Image>
+                            <div className={'w-full flex justify-center'}>
+                                <div className={'w-96 h-96 relative'}>
+                                    <Image src={'/images/punks.gif'} layout={'fill'}></Image>
+                                </div>
                             </div>
                             <div className={'w-full '}>
                                 <MyTimer expiryTimestamp={time}></MyTimer>
@@ -428,7 +433,7 @@ export default function Home() {
 
                 {/*PUNKS DAO*/}
 
-                <div
+                <div id={'dao'}
                     className={'block w-full py-20 h-[484px] sm:h-[692px] bg-black bg-cover flex justify-center items-center'}>
                     <motion.div className={'w-[1160px] hidden sm:flex h-[612px] relative'} initial={'hidden'}
                                 whileInView={'visible'}
@@ -449,7 +454,7 @@ export default function Home() {
 
                 {/*Roadmap*/}
 
-                <div className={'block w-full py-10 bg-[url("../public/images/roadmap.png")] bg-cover px-3 sm:px-20'}>
+                <div className={'block w-full py-10 bg-[url("../public/images/roadmap.png")] bg-cover px-3 sm:px-20'} id={'roadmap'}>
                     <motion.p className={'text-4xl font-game text-white sm:text-8xl w-full py-10'} initial={'hidden'}
                               whileInView={'visible'}
                               viewport={{once: true}}
@@ -587,7 +592,7 @@ export default function Home() {
 
                 {/*OUR COMMAND*/}
 
-                <div className={'block py-10 w-full bg-black'}>
+                <div className={'block py-10 w-full bg-black'} id={'team'}>
                     <motion.p className={'font-game text-white text-4xl sm:text-8xl text-center w-full py-10'}
                               initial={'hidden'}
                               whileInView={'visible'}

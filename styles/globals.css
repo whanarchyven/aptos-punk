@@ -3,3 +3,41 @@
 @tailwind utilities;
 
 @import url("../public/fonts/fonts/stylesheet.css");
+
+@layer utilities {
+    .aptos-link:hover{
+        text-shadow:
+                -0   -3px 0   #E44684,
+                0   -3px 0   #E44684,
+                -0    3px 0   #E44684,
+                0    3px 0   #E44684,
+                -3px -0   0   #E44684,
+                3px -0   0   #E44684,
+                -3px  0   0   #E44684,
+                3px  0   0   #E44684,
+                -1px -3px 0   #E44684,
+                1px -3px 0   #E44684,
+                -1px  3px 0   #E44684,
+                1px  3px 0   #E44684,
+                -3px -1px 0   #E44684,
+                3px -1px 0   #E44684,
+                -3px  1px 0   #E44684,
+                3px  1px 0   #E44684,
+                -2px -3px 0   #E44684,
+                2px -3px 0   #E44684,
+                -2px  3px 0   #E44684,
+                2px  3px 0   #E44684,
+                -3px -2px 0   #E44684,
+                3px -2px 0   #E44684,
+                -3px  2px 0   #E44684,
+                3px  2px 0   #E44684,
+                -3px -3px 0   #E44684,
+                3px -3px 0   #E44684,
+                -3px  3px 0   #E44684,
+                3px  3px 0   #E44684,
+                -3px -3px 0   #E44684,
+                3px -3px 0   #E44684,
+                -3px  3px 0   #E44684,
+                3px  3px 0   #E44684;
+    }
+}
