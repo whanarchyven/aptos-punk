@@ -52,8 +52,8 @@ export default function Home() {
     }, [wallet.autoConnect, wallet.wallet, wallet.connect]);
 
     const mint = async () => {
-        if (timeLeftToMint.public > 0 && candyMachineData.data.numMintedTokens > 300) { return(alert('Whitelist limit exceeded')) }
-        if (!isUserInWhiteList && timeLeftToMint.public>0) { return(alert('You are not in White List')) }
+        if (timeLeftToMint.public !== "LIVE" && candyMachineData.data.numMintedTokens > 300) { return(alert('Whitelist limit exceeded')) }
+        if (!isUserInWhiteList && timeLeftToMint.public !== "LIVE") { return(alert('You are not in White List')) }
         if (wallet.account?.address?.toString() === undefined || mintInfo.minting) return;
         setMintInfo({...mintInfo, minting: true})
         // Generate a transaction
