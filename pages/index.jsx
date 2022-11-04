@@ -52,6 +52,8 @@ export default function Home() {
     }, [wallet.autoConnect, wallet.wallet, wallet.connect]);
 
     const mint = async () => {
+        if (timeLeftToMint.public > 0 && candyMachineData.data.numMintedTokens > 300) { return(alert('Whitelist limit exceeded')) }
+        if (!isUserInWhiteList && timeLeftToMint.public>0) { return(alert('You are not in White List')) }
         if (wallet.account?.address?.toString() === undefined || mintInfo.minting) return;
         setMintInfo({...mintInfo, minting: true})
         // Generate a transaction
@@ -379,19 +381,7 @@ export default function Home() {
                             </div>
                             <div className={'w-full  mt-8 flex justify-center items-center'}>
                                 <div className={'cursor-pointer w-80 h-16 relative'} onClick={() => {
-                                    if (wallet.account) {
-                                        if (isUserInWhiteList) {
-                                            if (candyMachineData.data.numMintedTokens == 300) {
-                                                alert('Whitelist limit exceeded')
-                                            } else {
-                                                mint()
-                                            }
-                                        } else if ((timeLeftToMint.public.days == 0 && timeLeftToMint.public.seconds == 0 && timeLeftToMint.public.hours == 0 && timeLeftToMint.public.minutes == 0)) {
-                                            mint()
-                                        } else {
-                                            alert('You are not in White List')
-                                        }
-                                    } else {
+                                    if (wallet.account) {mint()} else {
                                         alert('Connect wallet!')
                                     }
                                 }}>
@@ -458,19 +448,7 @@ export default function Home() {
                         </div>
                         <div className={'w-full  mt-8 flex justify-center items-center'}>
                             <div className={'cursor-pointer w-80 h-16 relative'} onClick={() => {
-                                if (wallet.account) {
-                                    if (isUserInWhiteList) {
-                                        if (candyMachineData.data.numMintedTokens == 300) {
-                                            alert('Whitelist limit exceeded')
-                                        } else {
-                                            mint()
-                                        }
-                                    } else if ((timeLeftToMint.public.days == 0 && timeLeftToMint.public.seconds == 0 && timeLeftToMint.public.hours == 0 && timeLeftToMint.public.minutes == 0)) {
-                                        mint()
-                                    } else {
-                                        alert('You are not in White List')
-                                    }
-                                } else {
+                                if (wallet.account) {mint()} else {
                                     alert('Connect wallet!')
                                 }
                             }}>
