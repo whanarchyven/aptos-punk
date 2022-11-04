@@ -27,6 +27,7 @@ import {
 } from "../helpers/candyMachineInfo"
 
 import {toast} from 'react-toastify';
+import axios from "axios";
 
 const aptosClient = new AptosClient(NODE_URL);
 const autoCmRefresh = 10000;
@@ -52,8 +53,6 @@ export default function Home() {
 
     const mint = async () => {
         if (wallet.account?.address?.toString() === undefined || mintInfo.minting) return;
-
-        console.log(wallet.account?.address?.toString());
         setMintInfo({...mintInfo, minting: true})
         // Generate a transaction
         const payload = {
@@ -70,7 +69,6 @@ export default function Home() {
         let txInfo;
         try {
             const txHash = await wallet.signAndSubmitTransaction(payload);
-            console.log(txHash);
             txInfo = await aptosClient.waitForTransactionWithResult(txHash.hash)
         } catch (err) {
             txInfo = {
@@ -89,9 +87,8 @@ export default function Home() {
     }
 
     async function handleMintTxResult(txInfo) {
-        console.log(txInfo);
         const mintSuccess = txInfo.success;
-        console.log(mintSuccess ? "Mint success!" : `Mint failure, an error occured.`)
+
 
         let mintedNfts = []
         if (!mintSuccess) {
@@ -102,7 +99,6 @@ export default function Home() {
             ]);
 
             const txStatusError = txInfo.vm_status;
-            console.error(`Mint not successful: ${txStatusError}`);
             let errorMessage = handledErrorMessages.get(txStatusError);
             errorMessage = errorMessage === undefined ? "Unkown error occured. Try again." : errorMessage;
 
@@ -118,7 +114,7 @@ export default function Home() {
 
 
     async function fetchCandyMachineData(indicateIsFetching = false) {
-        console.log("Fetching candy machine data...")
+
         if (indicateIsFetching) setIsFetchignCmData(true)
         const cmResourceAccount = await cmHelper.getCandyMachineResourceAccount();
         if (cmResourceAccount === null) {
@@ -153,8 +149,8 @@ export default function Home() {
     useEffect(() => {
         clearTimeout(timeLeftToMint.timeout)
         verifyTimeLeftToMint()
+
         console.log(candyMachineData.data)
-        console.log(timeLeftToMint)
     }, [candyMachineData])
 
     // useEffect(() => {
@@ -301,6 +297,20 @@ export default function Home() {
     const secondsFull = Math.floor((new Date(tempDate).valueOf() - new Date().valueOf()) / 1000)
     time.setSeconds(secondsFull)
 
+    const [isUserInWhiteList, setIsUserInWhiteList] = useState(false)
+
+    const fetchWL = async () => {
+        axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=oph2KGT62f7d6fc7SbdhmEb0z9vO0Psqa2fZlbw7gM-WrXhHrhPUugwUtWMXnXWSQWNIh0X9uK6K_k4lI5_yxIBcUn4WTxoBm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnPwYZP8L4FFprSxLcl_1uXyFYzMWOa5tavUwNu98-8prKeKt2xYh_dcPAAHX3qcUbdf_5h7dO4VaozjJBv57y7haalhj3AWQZA&lib=MevTwhkZ-UhBqiQNDyENGdFVlhdY713ER').then((res) => {
+            res.data.result.map((item) => {
+                if ('0xa938ed623c3bccf59d22db6e95eb59fe354b037c0fe17acc3ab0404eeb72bf89' == item[0]) {
+                    setIsUserInWhiteList(true)
+                }
+            })
+        })
+    }
+
+    fetchWL();
+
     return (
         <div>
             <Head>
@@ -324,7 +334,7 @@ export default function Home() {
                 {/*Main block*/}
 
                 <div id={'main'}
-                    className={'block h-[120vh] overflow-x-hidden pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
+                     className={'block h-[120vh] overflow-x-hidden pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
                     <div className={'absolute hidden sm:flex w-full bottom-0 h-[17vw]'}>
                         <Image src={'/images/main_bg.png'} layout={'fill'}></Image>
                     </div>
@@ -361,23 +371,40 @@ export default function Home() {
                                     <Image src={'/images/punks.gif'} layout={'fill'}></Image>
                                 </div>
                             </div>
-                            <div className={'w-full '}>
+                            <div className={'w-full mt-4 '}>
                                 <div className={'flex flex-wrap justify-center text-center'}>
                                     <p className={'text-white font-player'}>Time to left:</p>
-                                    <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days} days {timeLeftToMint.presale.hours} hours {timeLeftToMint.presale.minutes} minutes</p>
+                                    <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days ? timeLeftToMint.presale.days : '0'} days {timeLeftToMint.presale.hours ? timeLeftToMint.presale.hours : '0'} hours {timeLeftToMint.presale.minutes ? timeLeftToMint.presale.minutes : '0'} minutes</p>
                                 </div>
                             </div>
                             <div className={'w-full  mt-8 flex justify-center items-center'}>
-                                <div className={'cursor-pointer w-80 h-16 relative'} onClick={()=>{if(wallet.account){mint()}else{alert('Connect wallet!')}}}>
+                                <div className={'cursor-pointer w-80 h-16 relative'} onClick={() => {
+                                    if (wallet.account) {
+                                        if (isUserInWhiteList) {
+                                            if (candyMachineData.data.numMintedTokens == 300) {
+                                                alert('Whitelist limit exceeded')
+                                            } else {
+                                                mint()
+                                            }
+                                        } else if ((timeLeftToMint.public.days == 0 && timeLeftToMint.public.seconds == 0 && timeLeftToMint.public.hours == 0 && timeLeftToMint.public.minutes == 0)) {
+                                            mint()
+                                        } else {
+                                            alert('You are not in White List')
+                                        }
+                                    } else {
+                                        alert('Connect wallet!')
+                                    }
+                                }}>
                                     <Image src={'/images/mint_button.svg'} layout={'fill'}></Image>
                                 </div>
                             </div>
                         </motion.div>
-                        <motion.div className={'w-60 mx-2 h-80 sm:w-96  py-5 sm:h-96 flex flex-wrap justify-center relative'}
-                                    initial={'hidden'} whileInView={'visible'}
-                                    viewport={{once: true}}
-                                    transition={animate.transitionSecond}
-                                    variants={animate.animateFadeInLeft}>
+                        <motion.div
+                            className={'w-60 mx-2 h-80 sm:w-96  py-5 sm:h-96 flex flex-wrap justify-center relative'}
+                            initial={'hidden'} whileInView={'visible'}
+                            viewport={{once: true}}
+                            transition={animate.transitionSecond}
+                            variants={animate.animateFadeInLeft}>
                             <div className={'absolute z-0 top-0 left-0 w-full h-full'}>
                                 <Image src={'/images/main_rectangle.png'} layout={'fill'}></Image>
                             </div>
@@ -412,7 +439,8 @@ export default function Home() {
                             </div>
                             <div className={'w-4/5 flex items-center my-2 sm:grid sm:grid-cols-2'}>
                                 <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>Limit</p>
-                                <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>2 NFT</p>
+                                <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>2
+                                    NFT</p>
                             </div>
                         </motion.div>
 
@@ -423,13 +451,29 @@ export default function Home() {
                                 transition={animate.transitionSecond}
                                 variants={animate.animateZoomIn}>
                         <div className={'w-full '}>
-                            <div className={'flex flex-wrap justify-center text-center'}>
+                            <div className={'flex  flex-wrap justify-center text-center'}>
                                 <p className={'text-white font-player'}>Time to left:</p>
-                                <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days} days {timeLeftToMint.presale.hours} hours {timeLeftToMint.presale.minutes} minutes</p>
+                                <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days ? timeLeftToMint.presale.days : '0'} days {timeLeftToMint.presale.hours ? timeLeftToMint.presale.hours : '0'} hours {timeLeftToMint.presale.minutes ? timeLeftToMint.presale.minutes : '0'} minutes</p>
                             </div>
                         </div>
                         <div className={'w-full  mt-8 flex justify-center items-center'}>
-                            <div className={'cursor-pointer w-80 h-16 relative'} onClick={()=>{if(wallet.account){mint()}else{alert('Connect wallet!')}}}>
+                            <div className={'cursor-pointer w-80 h-16 relative'} onClick={() => {
+                                if (wallet.account) {
+                                    if (isUserInWhiteList) {
+                                        if (candyMachineData.data.numMintedTokens == 300) {
+                                            alert('Whitelist limit exceeded')
+                                        } else {
+                                            mint()
+                                        }
+                                    } else if ((timeLeftToMint.public.days == 0 && timeLeftToMint.public.seconds == 0 && timeLeftToMint.public.hours == 0 && timeLeftToMint.public.minutes == 0)) {
+                                        mint()
+                                    } else {
+                                        alert('You are not in White List')
+                                    }
+                                } else {
+                                    alert('Connect wallet!')
+                                }
+                            }}>
                                 <Image src={'/images/mint_button.svg'} layout={'fill'}></Image>
                             </div>
                         </div>
@@ -440,7 +484,7 @@ export default function Home() {
                 {/*PUNKS DAO*/}
 
                 <div id={'dao'}
-                    className={'block w-full py-20 h-[484px] sm:h-[692px] bg-black bg-cover flex justify-center items-center'}>
+                     className={'block w-full py-20 h-[484px] sm:h-[692px] bg-black bg-cover flex justify-center items-center'}>
                     <motion.div className={'w-[1160px] hidden sm:flex h-[612px] relative'} initial={'hidden'}
                                 whileInView={'visible'}
                                 viewport={{once: true}}
@@ -460,7 +504,8 @@ export default function Home() {
 
                 {/*Roadmap*/}
 
-                <div className={'block w-full py-10 bg-[url("../public/images/roadmap.png")] bg-cover px-3 sm:px-20'} id={'roadmap'}>
+                <div className={'block w-full py-10 bg-[url("../public/images/roadmap.png")] bg-cover px-3 sm:px-20'}
+                     id={'roadmap'}>
                     <motion.p className={'text-4xl font-game text-white sm:text-8xl w-full py-10'} initial={'hidden'}
                               whileInView={'visible'}
                               viewport={{once: true}}
