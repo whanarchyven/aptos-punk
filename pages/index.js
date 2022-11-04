@@ -233,17 +233,17 @@ export default function Home() {
         {
             id: 3,
             title: '4Q 2021',
-            description: 'Mint first Aptos PUNKS colletion',
+            description: 'Mint first Aptos HUMANS colletion',
         },
         {
             id: 4,
             title: '4Q 2021',
-            description: 'PUNKS DAO',
+            description: 'HUMANS DAO',
         },
         {
             id: 5,
             title: '1Q 2022',
-            description: 'Punks Wallet',
+            description: 'Humans Wallet',
         },
         {
             id: 6,
@@ -252,11 +252,11 @@ export default function Home() {
         }, {
             id: 7,
             title: '3Q 2022',
-            description: 'Aptos Punks Gen 2 collection',
+            description: 'Aptos Humans Gen 2 collection',
         }, {
             id: 8,
             title: '3Q 2022',
-            description: 'Punks NFT Metaverse.',
+            description: 'Humans NFT Metaverse.',
         }, {
             id: 9,
             title: '3Q 2022',
