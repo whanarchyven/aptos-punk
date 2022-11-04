@@ -22,7 +22,7 @@ const ConnectWalletButton = (props) => {
 
     const button = <button disabled={disabled} className={`${styles.connectWalletBtn} ${className} ${disabled ? "disabled" : ""}`} onClick={handleButtonClick} style={style}>
         <img src={aptosLogo.src} className={'w-10 h-10 mx-2'} />
-        <h4 className="mb-0 text-left text-white font-player" style={{textAlign:'left'}}>{connectButton ? "Connect" : "Disconnect"}<br/>wallet</h4>
+        <h4 className="mb-0 text-left text-[0.5rem] sm:text-lg text-white font-player" style={{textAlign:'left'}}>{connectButton ? "Connect" : "Disconnect"}<br/>wallet</h4>
     </button>
 
     return (

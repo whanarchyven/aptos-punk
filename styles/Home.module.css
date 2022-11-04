@@ -87,6 +87,10 @@
     width: 100%;
     flex-direction: column;
   }
+  .connectWalletBtn>img{
+    width: 15px;
+    height: 15px;
+  }
 }
 /*
 @media (prefers-color-scheme: dark) {

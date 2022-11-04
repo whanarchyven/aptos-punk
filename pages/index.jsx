@@ -154,6 +154,7 @@ export default function Home() {
         clearTimeout(timeLeftToMint.timeout)
         verifyTimeLeftToMint()
         console.log(candyMachineData.data)
+        console.log(timeLeftToMint)
     }, [candyMachineData])
 
     // useEffect(() => {
@@ -184,17 +185,17 @@ export default function Home() {
         {
             id: 3,
             title: '4Q 2021',
-            description: 'Mint first Aptos PUNKS colletion',
+            description: 'Mint first Aptos HUMANS colletion',
         },
         {
             id: 4,
             title: '4Q 2021',
-            description: 'PUNKS DAO',
+            description: 'HUMANS DAO',
         },
         {
             id: 5,
             title: '1Q 2022',
-            description: 'Punks Wallet',
+            description: 'Humans Wallet',
         },
     ]
 
@@ -206,11 +207,11 @@ export default function Home() {
         }, {
             id: 7,
             title: '3Q 2022',
-            description: 'Aptos Punks Gen 2 collection',
+            description: 'Aptos Humans Gen 2 collection',
         }, {
             id: 8,
             title: '3Q 2022',
-            description: 'Punks NFT Metaverse.',
+            description: 'Humans NFT Metaverse.',
         }, {
             id: 9,
             title: '3Q 2022',
@@ -303,7 +304,7 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>ATOS PUNKS</title>
+                <title>APTOS HUMANS</title>
                 <meta name="description" content="ATOS PUNKS NFT DAO"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
@@ -323,7 +324,7 @@ export default function Home() {
                 {/*Main block*/}
 
                 <div id={'main'}
-                    className={'block h-[100vh] overflow-x-hidden pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
+                    className={'block h-[120vh] overflow-x-hidden pt-16 relative border-2 border-black bg-[url("../public/images/main_background.png")] bg-cover'}>
                     <div className={'absolute hidden sm:flex w-full bottom-0 h-[17vw]'}>
                         <Image src={'/images/main_bg.png'} layout={'fill'}></Image>
                     </div>
@@ -361,7 +362,10 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className={'w-full '}>
-                                <MyTimer expiryTimestamp={time}></MyTimer>
+                                <div className={'flex flex-wrap justify-center text-center'}>
+                                    <p className={'text-white font-player'}>Time to left:</p>
+                                    <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days} days {timeLeftToMint.presale.hours} hours {timeLeftToMint.presale.minutes} minutes</p>
+                                </div>
                             </div>
                             <div className={'w-full  mt-8 flex justify-center items-center'}>
                                 <div className={'cursor-pointer w-80 h-16 relative'} onClick={()=>{if(wallet.account){mint()}else{alert('Connect wallet!')}}}>
@@ -397,8 +401,7 @@ export default function Home() {
                             <div className={'w-4/5 flex items-center my-2 sm:grid sm:grid-cols-2'}>
                                 <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>WL
                                     mint:</p>
-                                <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>0
-                                    $APT</p>
+                                <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>{candyMachineData.data.mintFee} $APT</p>
                             </div>
                             <div className={'w-4/5 flex items-center my-2 sm:grid sm:grid-cols-2'}>
                                 <p className={'text-white font-player text-[0.5rem] leading-[100%] sm:text-xs mx-2'}>public<br/>mint
@@ -420,7 +423,10 @@ export default function Home() {
                                 transition={animate.transitionSecond}
                                 variants={animate.animateZoomIn}>
                         <div className={'w-full '}>
-                            <MyTimer expiryTimestamp={time}></MyTimer>
+                            <div className={'flex flex-wrap justify-center text-center'}>
+                                <p className={'text-white font-player'}>Time to left:</p>
+                                <p className={'font-player  text-sm text-white'}>{timeLeftToMint.presale.days} days {timeLeftToMint.presale.hours} hours {timeLeftToMint.presale.minutes} minutes</p>
+                            </div>
                         </div>
                         <div className={'w-full  mt-8 flex justify-center items-center'}>
                             <div className={'cursor-pointer w-80 h-16 relative'} onClick={()=>{if(wallet.account){mint()}else{alert('Connect wallet!')}}}>
@@ -600,7 +606,7 @@ export default function Home() {
                               transition={animate.transitionSecond}
                               variants={animate.animateFadeInDown}>OUR TEAM
                     </motion.p>
-                    <div className={'w-full sm:px-40 flex justify-center items-center flex-wrap'}>
+                    <div className={'w-full sm:px-60 flex justify-center items-center flex-wrap'}>
                         {team.map((item, counter) => {
                             return (
                                 <div key={counter}
