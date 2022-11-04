@@ -304,7 +304,7 @@ export default function Home() {
     const fetchWL = async () => {
         axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=oph2KGT62f7d6fc7SbdhmEb0z9vO0Psqa2fZlbw7gM-WrXhHrhPUugwUtWMXnXWSQWNIh0X9uK6K_k4lI5_yxIBcUn4WTxoBm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnPwYZP8L4FFprSxLcl_1uXyFYzMWOa5tavUwNu98-8prKeKt2xYh_dcPAAHX3qcUbdf_5h7dO4VaozjJBv57y7haalhj3AWQZA&lib=MevTwhkZ-UhBqiQNDyENGdFVlhdY713ER').then((res) => {
             res.data.result.map((item) => {
-                if ('0xa938ed623c3bccf59d22db6e95eb59fe354b037c0fe17acc3ab0404eeb72bf89' == item[0]) {
+                if (wallet.account?.address?.toString() == item[0]) {
                     setIsUserInWhiteList(true)
                 }
             })
