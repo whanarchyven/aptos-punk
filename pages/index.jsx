@@ -158,9 +158,6 @@ export default function Home() {
     // useEffect(() => {
     //   setCanMint(wallet.connected && candyMachineData.data.isPublic && parseInt(candyMachineData.data.numUploadedTokens) > parseInt(candyMachineData.data.numMintedTokens) && timeLeftToMint.presale === "LIVE")
     // }, [wallet, candyMachineData, timeLeftToMint])
-    useEffect(() => {
-        setCanMint(true)
-    }, [wallet, candyMachineData, timeLeftToMint])
 
 
     const [totalSupply, setTotalSupply] = useState(0)
@@ -311,7 +308,13 @@ export default function Home() {
         })
     }
 
-    fetchWL();
+    useEffect(() => {
+        setCanMint(true)
+        if (timeLeftToMint.public !== "LIVE"){
+            fetchWL();
+        }
+    }, [wallet, candyMachineData, timeLeftToMint])
+
 
     return (
         <div>
