@@ -298,11 +298,21 @@ export default function Home() {
 
     const [isUserInWhiteList, setIsUserInWhiteList] = useState(false)
 
+    const [isSearchingInWL,setIsSearchingInWL]=useState(false);
+
+    const [mintButtonTitle,setMintButtonTitle]=useState('Wait, we are serching you in WL')
+
+    useEffect(()=>{
+
+    },[isSearchingInWL,isUserInWhiteList])
+
     const fetchWL = async () => {
+        setIsSearchingInWL(true);
         axios.get('https://script.googleusercontent.com/macros/echo?user_content_key=oph2KGT62f7d6fc7SbdhmEb0z9vO0Psqa2fZlbw7gM-WrXhHrhPUugwUtWMXnXWSQWNIh0X9uK6K_k4lI5_yxIBcUn4WTxoBm5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnPwYZP8L4FFprSxLcl_1uXyFYzMWOa5tavUwNu98-8prKeKt2xYh_dcPAAHX3qcUbdf_5h7dO4VaozjJBv57y7haalhj3AWQZA&lib=MevTwhkZ-UhBqiQNDyENGdFVlhdY713ER').then((res) => {
             res.data.result.map((item) => {
                 if (wallet.account?.address?.toString() == item[0]) {
                     setIsUserInWhiteList(true)
+                    setIsSearchingInWL(false)
                 }
             })
         })
@@ -388,7 +398,7 @@ export default function Home() {
                                         alert('Connect wallet!')
                                     }
                                 }}>
-                                    <Image src={'/images/mint_button.svg'} layout={'fill'}></Image>
+                                    {isSearchingInWL?<Image src={'/images/wait_button.svg'} layout={'fill'}></Image>:<Image src={'/images/mint_button.svg'} layout={'fill'}></Image>}
                                 </div>
                             </div>
                         </motion.div>
