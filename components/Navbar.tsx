@@ -26,15 +26,15 @@ const Navbar = (props:any) => {
                 <a href={'#dao'} className={'aptos-link text-xs text-center text-white font-player'}>DAO</a>
             </div>
             <div className={'hidden sm:flex col-span-2 justify-around items-center'}>
-                <div className={'relative w-10 h-10'}>
+                <a href={'https://twitter.com/Aptos_Humans'} className={'relative w-10 h-10'}>
                     <Image src={'/images/twitter.svg'} layout={'fill'}></Image>
-                </div>
-                <div className={'relative w-10 h-10'}>
+                </a>
+                <a href={'https://discord.gg/GTxqPCAc'} className={'relative w-10 h-10'}>
                     <Image src={'/images/telegram.svg'} layout={'fill'}></Image>
-                </div>
-                <div className={'relative w-10 h-10'}>
+                </a>
+                <a href={'https://studio-seo.gitbook.io/aptos-humans/'} className={'relative w-10 h-10'}>
                     <Image src={'/images/gitbook.svg'} layout={'fill'}></Image>
-                </div>
+                </a>
             </div>
             <div className={'border-l-2 sm:col-span-2 border-white h-full flex justify-center items-center'}>
                 {props.children}

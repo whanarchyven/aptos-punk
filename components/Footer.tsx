@@ -22,15 +22,15 @@ const Footer = () => {
                 </div>
             </div>
             <div className={'mt-8 sm:mt-0 flex justify-around items-center'}>
-                <div className={'relative w-16 mx-4 h-16'}>
+                <a href={'https://twitter.com/Aptos_Humans'} className={'relative w-16 mx-4 h-16'}>
                     <Image src={'/images/twitter.svg'} layout={'fill'}></Image>
-                </div>
-                <div className={'relative w-16 mx-4 h-16'}>
+                </a>
+                <a href={'https://discord.gg/GTxqPCAc'} className={'relative w-16 mx-4 h-16'}>
                     <Image src={'/images/telegram.svg'} layout={'fill'}></Image>
-                </div>
-                <div className={'relative w-16 mx-4 h-16'}>
+                </a>
+                <a href={'https://studio-seo.gitbook.io/aptos-humans/'} className={'relative w-16 mx-4 h-16'}>
                     <Image src={'/images/gitbook.svg'} layout={'fill'}></Image>
-                </div>
+                </a>
             </div>
         </div>
     );
