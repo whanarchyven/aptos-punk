@@ -330,7 +330,7 @@ export default function Home() {
         <div>
             <Head>
                 <title>APTOS HUMANS</title>
-                <meta name="description" content="ATOS PUNKS NFT DAO"/>
+                <meta name="description" content="Humans NFT / DAO / Wallet / Gen1 / Gen2 / Testnet"/>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
